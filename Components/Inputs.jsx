@@ -2,8 +2,8 @@ import {StyleSheet, Text, View, TextInput} from 'react-native';
 import React, {useState} from 'react';
 
 export default function Inputs({label, inputValue, setInputValue}) {
-  const handleInputChange = text => {
-    setInputValue(text);
+  const handleInputChange = email => {
+    setInputValue(email);
   };
   return (
     <View style={styles.container}>

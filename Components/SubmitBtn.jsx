@@ -2,10 +2,10 @@ import {StyleSheet, Text, View, Pressable} from 'react-native';
 import React from 'react';
 import {GlobalStyles} from '../constants/styles';
 
-export default function SubmitBtn({buttonText, onPress}) {
+export default function SubmitBtn({buttonText, method}) {
   return (
     <View style={styles.container}>
-      <Pressable style={styles.btnStyling} onPress={onPress}>
+      <Pressable style={styles.btnStyling} onPress={method}>
         <Text style={styles.btnText}>{buttonText}</Text>
       </Pressable>
     </View>

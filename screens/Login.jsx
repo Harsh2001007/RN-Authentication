@@ -6,6 +6,7 @@ import SubmitBtn from '../Components/SubmitBtn';
 
 export default function Login() {
   const [inputValue, setInputValue] = useState('');
+
   const handleButtonPress = () => {
     console.log(inputValue);
   };
@@ -23,9 +24,9 @@ export default function Login() {
           setInputValue={setInputValue}
         />
 
-        <SubmitBtn buttonText={'Log In'} onPress={handleButtonPress} />
+        <SubmitBtn buttonText={'Log In'} method={handleButtonPress} />
         <Pressable style={styles.newUser}>
-          <Text style={{color: 'white'}}>Create a new user</Text>
+          <Text style={{color: 'white'}}>Create Account</Text>
         </Pressable>
       </View>
     </View>
