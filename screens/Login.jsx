@@ -5,23 +5,32 @@ import Inputs from '../Components/Inputs';
 import SubmitBtn from '../Components/SubmitBtn';
 
 export default function Login() {
-  const [inputValue, setInputValue] = useState('');
+  const [emailInput, setEmailInput] = useState('');
+  const [passInput, setPassInput] = useState('');
+
+  const handleEmailInput = text => {
+    setEmailInput(text);
+  };
+
+  const handlePassInput = text => {
+    setPassInput(text);
+  };
 
   const handleButtonPress = () => {
-    console.log(inputValue);
+    console.log(emailInput + passInput);
   };
   return (
     <View style={styles.container}>
       <View style={styles.fieldContainer}>
         <Inputs
-          label={'Email Address'}
-          inputValue={inputValue}
-          setInputValue={setInputValue}
+          label={'Email'}
+          inputValue={emailInput}
+          inputMethod={handleEmailInput}
         />
         <Inputs
-          label={'Password'}
-          inputValue={inputValue}
-          setInputValue={setInputValue}
+          label={'Pasword'}
+          inputValue={passInput}
+          inputMethod={handlePassInput}
         />
 
         <SubmitBtn buttonText={'Log In'} method={handleButtonPress} />
