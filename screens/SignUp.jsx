@@ -4,23 +4,34 @@ import {GlobalStyles} from '../constants/styles';
 import Inputs from '../Components/Inputs';
 import SubmitBtn from '../Components/SubmitBtn';
 
-export default function Login({navigation}) {
+export default function SignUP({navigation}) {
   const [emailInput, setEmailInput] = useState('');
   const [passInput, setPassInput] = useState('');
+  const [confirmEmailInput, setConfirmEmailInput] = useState('');
+  const [contactInput, setContactInput] = useState('');
 
   const handleEmailInput = text => {
     setEmailInput(text);
+  };
+
+  const handleConfirmEmailInput = text => {
+    setConfirmEmailInput(text);
   };
 
   const handlePassInput = text => {
     setPassInput(text);
   };
 
-  const handleButtonPress = () => {
-    console.log(emailInput + passInput);
+  const handleContactInput = text => {
+    setContactInput(text);
   };
-  const createAccountHandler = () => {
-    navigation.navigate('Signup-screen');
+
+  const handleButtonPress = () => {
+    console.log(emailInput + passInput + contactInput + confirmEmailInput);
+  };
+
+  const loginAccountHandler = () => {
+    navigation.navigate('Login-screen');
   };
   return (
     <View style={styles.container}>
@@ -31,14 +42,24 @@ export default function Login({navigation}) {
           inputMethod={handleEmailInput}
         />
         <Inputs
-          label={'Pasword'}
+          label={'Confirm Email'}
+          inputValue={confirmEmailInput}
+          inputMethod={handleConfirmEmailInput}
+        />
+        <Inputs
+          label={'Password'}
           inputValue={passInput}
           inputMethod={handlePassInput}
         />
+        <Inputs
+          label={'Mobile'}
+          inputValue={contactInput}
+          inputMethod={handleContactInput}
+        />
 
         <SubmitBtn buttonText={'Log In'} method={handleButtonPress} />
-        <Pressable style={styles.newUser} onPress={createAccountHandler}>
-          <Text style={{color: 'white'}}>Create Account</Text>
+        <Pressable style={styles.newUser} onPress={loginAccountHandler}>
+          <Text style={{color: 'white'}}>Log In Instead</Text>
         </Pressable>
       </View>
     </View>
@@ -51,7 +72,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   fieldContainer: {
-    height: '40%',
+    height: '65%',
     width: '80%',
     backgroundColor: GlobalStyles.colors.primaryBlack,
     marginTop: '15%',

@@ -6,6 +6,7 @@ import Login from './screens/Login';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {GlobalStyles} from './constants/styles';
+import SignUP from './screens/SignUp';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +20,15 @@ export default function App() {
           options={{
             headerStyle: {backgroundColor: GlobalStyles.colors.primaryBlack},
             headerTintColor: GlobalStyles.colors.primarytext,
+          }}
+        />
+        <Stack.Screen
+          name="Signup-screen"
+          component={SignUP}
+          options={{
+            headerStyle: {backgroundColor: GlobalStyles.colors.primaryBlack},
+            headerTintColor: GlobalStyles.colors.primarytext,
+            headerBackTitleVisible: false,
           }}
         />
       </Stack.Navigator>
