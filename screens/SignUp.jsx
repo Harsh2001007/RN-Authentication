@@ -1,4 +1,11 @@
-import {StyleSheet, Text, View, Pressable, TextInput} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Pressable,
+  TextInput,
+  Alert,
+} from 'react-native';
 import React, {useState} from 'react';
 import {GlobalStyles} from '../constants/styles';
 import Inputs from '../Components/Inputs';
@@ -28,8 +35,13 @@ export default function SignUP({navigation}) {
   };
 
   async function signUpHandler() {
-    await createUser(emailInput, passInput);
-    console.log('user created');
+    await createUser(emailInput, passInput)
+      .then(() => {
+        Alert.alert('user created');
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   const loginAccountHandler = () => {
