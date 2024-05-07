@@ -37,7 +37,7 @@ export default function SignUP({navigation}) {
   async function signUpHandler() {
     await createUser(emailInput, passInput)
       .then(() => {
-        Alert.alert('user created');
+        Alert.alert('user created successfully');
       })
       .catch(err => {
         console.log(err);

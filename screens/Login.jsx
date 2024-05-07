@@ -1,8 +1,16 @@
-import {StyleSheet, Text, View, Pressable, TextInput} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Pressable,
+  TextInput,
+  Alert,
+} from 'react-native';
 import React, {useState} from 'react';
 import {GlobalStyles} from '../constants/styles';
 import Inputs from '../Components/Inputs';
 import SubmitBtn from '../Components/SubmitBtn';
+import {login} from '../utils/auth';
 
 export default function Login({navigation}) {
   const [emailInput, setEmailInput] = useState('');
@@ -16,9 +24,16 @@ export default function Login({navigation}) {
     setPassInput(text);
   };
 
-  const handleButtonPress = () => {
-    console.log(emailInput + passInput);
-  };
+  async function loginHandler() {
+    await login(emailInput, passInput)
+      .then(() => {
+        Alert.alert('user logged in successfully');
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   const createAccountHandler = () => {
     navigation.navigate('Signup-screen');
   };
@@ -36,7 +51,7 @@ export default function Login({navigation}) {
           inputMethod={handlePassInput}
         />
 
-        <SubmitBtn buttonText={'Log In'} method={handleButtonPress} />
+        <SubmitBtn buttonText={'Log In'} method={loginHandler} />
         <Pressable style={styles.newUser} onPress={createAccountHandler}>
           <Text style={{color: 'white'}}>Create Account</Text>
         </Pressable>
