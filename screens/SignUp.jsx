@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import {GlobalStyles} from '../constants/styles';
 import Inputs from '../Components/Inputs';
 import SubmitBtn from '../Components/SubmitBtn';
+import {createUser} from '../utils/auth';
 
 export default function SignUP({navigation}) {
   const [emailInput, setEmailInput] = useState('');
@@ -26,9 +27,10 @@ export default function SignUP({navigation}) {
     setContactInput(text);
   };
 
-  const handleButtonPress = () => {
-    console.log(emailInput + passInput + contactInput + confirmEmailInput);
-  };
+  async function signUpHandler() {
+    await createUser(emailInput, passInput);
+    console.log('user created');
+  }
 
   const loginAccountHandler = () => {
     navigation.navigate('Login-screen');
@@ -57,7 +59,7 @@ export default function SignUP({navigation}) {
           inputMethod={handleContactInput}
         />
 
-        <SubmitBtn buttonText={'Log In'} method={handleButtonPress} />
+        <SubmitBtn buttonText={'Sign up'} method={signUpHandler} />
         <Pressable style={styles.newUser} onPress={loginAccountHandler}>
           <Text style={{color: 'white'}}>Log In Instead</Text>
         </Pressable>
