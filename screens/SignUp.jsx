@@ -41,6 +41,10 @@ export default function SignUP({navigation}) {
       })
       .catch(err => {
         console.log(err);
+        Alert.alert(
+          'Authentication failed',
+          'Unable to create user, please check your input and try again later.',
+        );
       });
   }
 

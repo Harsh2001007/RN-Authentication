@@ -31,6 +31,10 @@ export default function Login({navigation}) {
       })
       .catch(err => {
         console.log(err);
+        Alert.alert(
+          'Authentication failed',
+          'Check your credentials and try again.',
+        );
       });
   }
 
