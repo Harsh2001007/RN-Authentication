@@ -1,14 +1,14 @@
 import 'react-native-gesture-handler';
 
 import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useContext} from 'react';
 import Login from './screens/Login';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {GlobalStyles} from './constants/styles';
 import SignUP from './screens/SignUp';
 import Welcome from './screens/Welcome';
-import AuthContextProvider from './store/auth-context';
+import AuthContextProvider, {AuthContext} from './store/auth-context';
 
 const Stack = createNativeStackNavigator();
 
@@ -45,17 +45,21 @@ function AuthStack() {
 }
 
 function Navigation() {
+  const authCtx = useContext(AuthContext);
   return (
-    <AuthContextProvider>
-      <NavigationContainer>
-        <AuthStack />
-      </NavigationContainer>
-    </AuthContextProvider>
+    <NavigationContainer>
+      {!authCtx.isAuthenticated && <AuthStack />}
+      {authCtx.isAuthenticated && <AuthenticatedStack />}
+    </NavigationContainer>
   );
 }
 
 export default function App() {
-  return <Navigation />;
+  return (
+    <AuthContextProvider>
+      <Navigation />
+    </AuthContextProvider>
+  );
 }
 
 const styles = StyleSheet.create({});

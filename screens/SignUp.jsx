@@ -6,17 +6,21 @@ import {
   TextInput,
   Alert,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {GlobalStyles} from '../constants/styles';
 import Inputs from '../Components/Inputs';
 import SubmitBtn from '../Components/SubmitBtn';
 import {createUser} from '../utils/auth';
+import {AuthContext} from '../store/auth-context';
 
 export default function SignUP({navigation}) {
   const [emailInput, setEmailInput] = useState('');
   const [passInput, setPassInput] = useState('');
   const [confirmEmailInput, setConfirmEmailInput] = useState('');
   const [contactInput, setContactInput] = useState('');
+
+  const [isAuthenticating, setIsAuthenticating] = useState(false);
+  const authCtx = useContext(AuthContext);
 
   const handleEmailInput = text => {
     setEmailInput(text);
@@ -35,9 +39,11 @@ export default function SignUP({navigation}) {
   };
 
   async function signUpHandler() {
-    await createUser(emailInput, passInput)
+    setIsAuthenticating(true);
+    const token = await createUser(emailInput, passInput)
       .then(() => {
-        Alert.alert('user created successfully');
+        console.log('user created', emailInput, passInput);
+        authCtx.authenticate(token);
       })
       .catch(err => {
         console.log(err);
@@ -46,6 +52,19 @@ export default function SignUP({navigation}) {
           'Unable to create user, please check your input and try again later.',
         );
       });
+  }
+
+  async function signUpHandler() {
+    setIsAuthenticating(true);
+    try {
+      const token = await createUser(emailInput, passInput);
+      authCtx.authenticate(token);
+    } catch (error) {
+      Alert.alert(
+        'Unable to sign up',
+        'Please check your inputs or try again later',
+      );
+    }
   }
 
   const loginAccountHandler = () => {

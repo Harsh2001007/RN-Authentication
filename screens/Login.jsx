@@ -6,15 +6,19 @@ import {
   TextInput,
   Alert,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {GlobalStyles} from '../constants/styles';
 import Inputs from '../Components/Inputs';
 import SubmitBtn from '../Components/SubmitBtn';
 import {login} from '../utils/auth';
+import {AuthContext} from '../store/auth-context';
 
 export default function Login({navigation}) {
   const [emailInput, setEmailInput] = useState('');
   const [passInput, setPassInput] = useState('');
+  const [isAuthenticating, setIsAuthenticating] = useState(false);
+
+  const authCtx = useContext(AuthContext);
 
   const handleEmailInput = text => {
     setEmailInput(text);
@@ -24,18 +28,34 @@ export default function Login({navigation}) {
     setPassInput(text);
   };
 
+  //   async function loginHandler() {
+  //     const token = await login(emailInput, passInput)
+  //       .then(() => {
+  //         console.log('logged in', token);
+
+  //         authCtx.authenticate(token);
+  //       })
+  //       .catch(err => {
+  //         console.log(err);
+  //         Alert.alert(
+  //           'Authentication failed',
+  //           'Check your credentials and try again.',
+  //         );
+  //       });
+  //   }
+
   async function loginHandler() {
-    await login(emailInput, passInput)
-      .then(() => {
-        Alert.alert('user logged in successfully');
-      })
-      .catch(err => {
-        console.log(err);
-        Alert.alert(
-          'Authentication failed',
-          'Check your credentials and try again.',
-        );
-      });
+    setIsAuthenticating(true);
+    try {
+      const token = await login(emailInput, passInput);
+      console.log('user logged in ', token);
+      authCtx.authenticate(token);
+    } catch (error) {
+      Alert.alert(
+        'Unable to log in',
+        'Please check your credentials and try again',
+      );
+    }
   }
 
   const createAccountHandler = () => {
