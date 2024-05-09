@@ -64,6 +64,7 @@ export default function SignUP({navigation}) {
         'Unable to sign up',
         'Please check your inputs or try again later',
       );
+      setIsAuthenticating(false);
     }
   }
 

@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 
-import {StyleSheet, Text, View} from 'react-native';
+import {Button, Pressable, StyleSheet, Text, View} from 'react-native';
 import React, {useContext} from 'react';
 import Login from './screens/Login';
 import {NavigationContainer} from '@react-navigation/native';
@@ -13,9 +13,19 @@ import AuthContextProvider, {AuthContext} from './store/auth-context';
 const Stack = createNativeStackNavigator();
 
 function AuthenticatedStack() {
+  const authCtx = useContext(AuthContext);
+  function logoutHandler() {
+    authCtx.logout();
+  }
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Welcome-screen" component={Welcome} />
+      <Stack.Screen
+        name="Welcome-screen"
+        component={Welcome}
+        options={{
+          headerRight: () => <Button title="Logout" onPress={logoutHandler} />,
+        }}
+      />
     </Stack.Navigator>
   );
 }

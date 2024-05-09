@@ -1,7 +1,12 @@
 import {StyleSheet, Text, View, TextInput} from 'react-native';
 import React, {useState} from 'react';
 
-export default function Inputs({label, inputMethod, inputValue}) {
+export default function Inputs({
+  label,
+  inputMethod,
+  inputValue,
+  securityOption,
+}) {
   return (
     <View style={styles.container}>
       <Text style={styles.lableStyle}>{label}</Text>
@@ -10,6 +15,7 @@ export default function Inputs({label, inputMethod, inputValue}) {
           style={styles.inputField}
           onChangeText={inputMethod}
           value={inputValue}
+          secureTextEntry={securityOption}
         />
       </View>
     </View>

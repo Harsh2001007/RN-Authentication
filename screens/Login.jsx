@@ -28,22 +28,6 @@ export default function Login({navigation}) {
     setPassInput(text);
   };
 
-  //   async function loginHandler() {
-  //     const token = await login(emailInput, passInput)
-  //       .then(() => {
-  //         console.log('logged in', token);
-
-  //         authCtx.authenticate(token);
-  //       })
-  //       .catch(err => {
-  //         console.log(err);
-  //         Alert.alert(
-  //           'Authentication failed',
-  //           'Check your credentials and try again.',
-  //         );
-  //       });
-  //   }
-
   async function loginHandler() {
     setIsAuthenticating(true);
     try {
@@ -73,6 +57,7 @@ export default function Login({navigation}) {
           label={'Pasword'}
           inputValue={passInput}
           inputMethod={handlePassInput}
+          securityOption={true}
         />
 
         <SubmitBtn buttonText={'Log In'} method={loginHandler} />
