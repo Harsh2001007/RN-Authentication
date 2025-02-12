@@ -61,7 +61,7 @@ export default function SignUP({navigation}) {
       authCtx.authenticate(token);
     } catch (error) {
       Alert.alert(
-        'Unable to sign up',
+        'Unable to sign up plz try after sometimes.',
         'Please check your inputs or try again later',
       );
       setIsAuthenticating(false);
